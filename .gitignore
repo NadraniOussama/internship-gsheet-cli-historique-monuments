@@ -5,5 +5,5 @@ user_sheet/build/
 *\build\*
 */build/
 app_stage/ios/
-app_stage/.dart_tool/
+app_stage\.dart_tool/
 app-input-oualid/build/
