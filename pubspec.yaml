@@ -1,0 +1,41 @@
+name: user_sheet
+description: A new Flutter project.
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  intl: ^0.17.0
+  provider: ^4.0.5
+  shared_preferences: ^2.0.8
+  cupertino_icons: ^1.0.2
+  flutter_cached_pdfview: ^0.4.0-nullsafety
+  path_provider: ^2.0.5
+
+  http: ^0.13.4
+  location: ^4.3.0
+
+  gsheets: ^0.3.2
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+flutter:
+
+  uses-material-design: true
+
+  assets:
+   - images/
+   - i18n/
+   - pdf-files/
