@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:user_sheet/homePage/button_elevate.dart';
+import 'package:user_sheet/list/button_update.dart';
 import 'package:user_sheet/list/users.dart';
+import 'package:user_sheet/page/insert_page.dart';
 
 class PlaceDetail extends StatelessWidget{
   late final Users user ;
-  PlaceDetail(this.user);
+  late Color color;
+  PlaceDetail(this.user, this.color);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: color,
         title: Text(user.nom),
       ),
       body: Container(
@@ -22,12 +27,9 @@ class PlaceDetail extends StatelessWidget{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("description historique : ",
-                      style: TextStyle(
-                    fontWeight: FontWeight.bold,
-
-                  )),
-                  Text(user.descriptionHistorique),
+                  ShowText("description historique : ",user.descriptionHistorique),
+                  ShowText("date de construction:",user.dateConstruction),
+                  Button_Update(color: color, buttonName: 'Update',funtion: ButtonSelect, user: user),
                 ],
               )
             ),
@@ -35,6 +37,25 @@ class PlaceDetail extends StatelessWidget{
         ),
       ),
     );
+  }
+
+  Column ShowText( String title, var context ) {
+    return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    Text(context),
+                  ],
+                );
+  }
+
+  void ButtonSelect(BuildContext context,Users user,Color color,String buttonName){
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => InsertPageState(user,color,buttonName) ) );
   }
 
 }

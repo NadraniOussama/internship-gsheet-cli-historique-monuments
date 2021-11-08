@@ -15,8 +15,24 @@ class UserFields{
   static final String  positionCarte = 'position dans carte';
   static final String image = 'image';
 
-  static List<String> getFields()=> [id,dateConstruction,epoqueConstruction,personneHistorique,
+  static List<String> getFields()=> [id,nom,dateConstruction,epoqueConstruction,personneHistorique,
                                      descriptionHistorique,lien,categorie,prixAcces,surface,positionCarte,image
                                     ];
+
+
+  static Map<String, dynamic> toJson() => {
+    "id": id,
+    "nom": nom,
+    "dateConstruction": dateConstruction,
+    "epoqueConstruction": epoqueConstruction,
+    "personneHistorique": personneHistorique,
+    "descriptionHistorique": descriptionHistorique,
+    "lien": lien,
+    "categorie": categorie,
+    "prixAcces": prixAcces,
+    "surface": surface,
+    "positionCarte": positionCarte,
+    "image": image,
+  };
 
 }

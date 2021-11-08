@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:user_sheet/page/create_sheets.dart';
 import 'package:user_sheet/page/insert_page.dart';
 import 'api/user_sheet_api.dart';
+import 'homePage/home_page.dart';
+import 'list/place_details.dart';
 import 'list/showplaces.dart';
 
 Future main() async {
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ShowPlaces(),
+      home: MyHomePage(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_sheet/api/user_sheet_api.dart';
+import 'package:user_sheet/list/users.dart';
 import 'package:user_sheet/model/user.dart';
 
 class InsertPageState extends StatelessWidget {
@@ -19,14 +20,19 @@ class InsertPageState extends StatelessWidget {
   TextEditingController prixAcces = TextEditingController();
   TextEditingController surface= TextEditingController();
   TextEditingController  positionCarte = TextEditingController();
-  //TextEditingController image = TextEditingController();
+  TextEditingController image = TextEditingController();
+  late Users user;
+  late Color color;
+  String buttonName;
+  InsertPageState(this.user, this.color, this.buttonName);
+
 
   Future<void> _submitForm() async {
 
     if(_formKey.currentState!.validate()){
    // descriptionHistorique,lien,categorie,prixAcces,surface,positionCarte,image
-      final user = {
-        UserFields.id :  nameController.text,
+      final Map<String,dynamic> users = {
+        UserFields.nom : nameController.text,
         UserFields.dateConstruction: dateConstruction.text,
         UserFields.epoqueConstruction: epoqueConstruction.text,
         UserFields.personneHistorique: personneHistorique.text,
@@ -38,7 +44,16 @@ class InsertPageState extends StatelessWidget {
         UserFields.positionCarte: positionCarte.text,
         //UserFields.image = image.text
       };
-      await UserSheetApi.insert([user]);
+
+      /*Users users = { nom: nom.text,
+          dateConstruction: dateConstruction.text, epoqueConstruction: epoqueConstruction.text,
+          personneHistorique: personneHistorique.text, descriptionHistorique: descriptionHistorique.text,
+          lien: lien.text, categorie: categorie.text, positionCarte: positionCarte.text, image: image.text} as Users ;*/
+
+     // await UserSheetApi.insert([user]);
+      print(users);
+      await UserSheetApi.update("1" ,users);
+      print(users);
       await UserSheetApi.init();
 
 
@@ -55,6 +70,8 @@ class InsertPageState extends StatelessWidget {
     _scaffoldKey.currentState!.showSnackBar(snackBar);
   }
 
+  String labelText = "Enter";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,13 +84,39 @@ class InsertPageState extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+              TextFormField(
+                //initialValue: this.user.nom,
+                controller: dateConstruction,
+                validator: (value){
+                  if(value!.isEmpty){
+                    return "Enter ValiddateConstruction";
+                  }
+                  return null;
+                },
+              //initialValue: this.user.nom,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: color),
+                    borderRadius: BorderRadius.circular(5.5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: color,
+                    ),
+                  ),
+                  filled: true,
+                  //fillColor: Colors.red[50],
+                  labelText: labelText,
+                  labelStyle: TextStyle(color: color),
+                ),
+              ),
                   Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         TextFormField(
-                          controller: nameController,
+                          controller: null = nameController ? user.nom : "",
                           validator: (value){
                             if(value!.isEmpty){
                               return "Enter Valid Name";
@@ -189,6 +232,7 @@ class InsertPageState extends StatelessWidget {
                             return null;
                           },
                           decoration: InputDecoration(
+                              prefixText: "esfsfsf",
                               labelText: "Feedback"
                           ),
                         ),
@@ -222,3 +266,25 @@ class InsertPageState extends StatelessWidget {
     );
   }
 }
+
+Widget buildTextField() => TextFormField(
+  decoration: InputDecoration(
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.red),
+      borderRadius: BorderRadius.circular(5.5),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.red,
+      ),
+    ),
+    prefixIcon: Icon(
+      Icons.person,
+      color: Colors.red,
+    ),
+    filled: true,
+    fillColor: Colors.red[50],
+    labelText: "Enter your Name",
+    labelStyle: TextStyle(color: Colors.red),
+  ),
+);
