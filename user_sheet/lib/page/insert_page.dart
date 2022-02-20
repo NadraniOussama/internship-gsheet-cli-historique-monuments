@@ -82,7 +82,7 @@ class InsertPageState extends StatelessWidget {
                     controller: dateConstruction,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Enter ValiddateConstruction";
+                        return "Enter Valid date Construction";
                       }
                       return null;
                     },
@@ -110,8 +110,7 @@ class InsertPageState extends StatelessWidget {
                       children: <Widget>[
                         TextFormField(
                           // ignore: unnecessary_null_comparison
-                          controller: (null y
-                          == nameController) ? user.nom : "",
+                          controller: nameController,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter Valid Name";
@@ -124,12 +123,12 @@ class InsertPageState extends StatelessWidget {
                           controller: dateConstruction,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter ValiddateConstruction";
+                              return "Enter Valid date Construction";
                             }
                             return null;
                           },
                           decoration:
-                              InputDecoration(labelText: "dateConstruction"),
+                              InputDecoration(labelText: "DateConstruction"),
                         ),
                         TextFormField(
                           controller: epoqueConstruction,
@@ -146,21 +145,23 @@ class InsertPageState extends StatelessWidget {
                           controller: personneHistorique,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter Valid Feedback";
+                              return "_";
                             }
                             return null;
                           },
-                          decoration: InputDecoration(labelText: "Feedback"),
+                          decoration:
+                              InputDecoration(labelText: "Personne historique"),
                         ),
                         TextFormField(
                           controller: descriptionHistorique,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter Valid descriptionHistorique";
+                              return "Enter Valid description Historique";
                             }
                             return null;
                           },
-                          decoration: InputDecoration(labelText: "Feedback"),
+                          decoration: InputDecoration(
+                              labelText: "Desciption historique"),
                         ),
                         TextFormField(
                           controller: lien,
@@ -170,62 +171,51 @@ class InsertPageState extends StatelessWidget {
                             }
                             return null;
                           },
-                          decoration: InputDecoration(labelText: "Feedback"),
+                          decoration:
+                              InputDecoration(labelText: "Lien intenet"),
                         ),
                         TextFormField(
                           controller: categorie,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter Valid Name";
+                              return "Enter Valid gategory";
                             }
                             return null;
                           },
-                          decoration: InputDecoration(labelText: "Name"),
+                          decoration: InputDecoration(labelText: "Category"),
                         ),
                         TextFormField(
                           controller: prixAcces,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter Valid Email";
+                              return "_";
                             }
                             return null;
                           },
-                          decoration: InputDecoration(labelText: "Email"),
+                          decoration:
+                              InputDecoration(labelText: "Prix d'access"),
                         ),
                         TextFormField(
                           controller: surface,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter Valid Phone Number";
+                              return "_";
                             }
                             return null;
                           },
-                          decoration:
-                              InputDecoration(labelText: "Phone Number"),
+                          decoration: InputDecoration(labelText: "Surface "),
                         ),
                         TextFormField(
                           controller: positionCarte,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Enter Valid Feedback";
+                              return "";
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                              prefixText: "esfsfsf", labelText: "Feedback"),
+                              prefixText: "esfsfsf", labelText: "Localisation"),
                         ),
-                        /* TextFormField(
-                          controller: image,
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return "Enter Valid Feedback";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              labelText: "Feedback"
-                          ),
-                        ),*/
                         RaisedButton(
                           color: Colors.blue,
                           textColor: Colors.white,
