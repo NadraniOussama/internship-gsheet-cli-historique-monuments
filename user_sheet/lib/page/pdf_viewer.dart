@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class PDFViewer extends StatefulWidget {
-  const PDFViewer({Key key, @required this.file}) : super(key: key);
+  const PDFViewer({key, required this.file}) : super(key: key);
   final File file;
 
   @override
