@@ -30,6 +30,11 @@ class _HomeState extends State<ShowPlaces> {
         _users = users;
 
         _loading = false;
+        if (_users.length - this.last > 0) {
+          n = _users.length - this.last;
+        } else {
+          n = 0;
+        }
       });
     });
     Services.getJsonData().then((paths) {
