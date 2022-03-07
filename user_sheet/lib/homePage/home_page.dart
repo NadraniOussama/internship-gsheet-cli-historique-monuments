@@ -18,6 +18,7 @@ class MyHomePage extends StatelessWidget {
         title: Text("List of path"),
       ),
       floatingActionButton: FloatingActionButton(
+        // TODO: use spead dial to give options
         onPressed: () async {
           String lang = 'en';
           final pathName = 'pdf-files/carte_fes_$lang.pdf';
@@ -32,8 +33,9 @@ class MyHomePage extends StatelessWidget {
           );
         },
         tooltip: 'Search for monument',
-        child: const Icon(Icons.search),
+        child: const Icon(Icons.map_outlined),
       ),
+      // TODO: set up options in endDrawer
       // endDrawer: Container(
       //   child: Text("data"),
       // ),
@@ -45,7 +47,7 @@ class MyHomePage extends StatelessWidget {
                   color: Colors.orange,
                   buttonName: 'Walls and rempards',
                   start: 1,
-                  last: 32,
+                  last: 12,
                   funtion: () {}),
               Button_Elevate(
                   color: Colors.pink,

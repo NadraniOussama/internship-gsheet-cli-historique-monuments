@@ -1,0 +1,14 @@
+[ 
+	{"path":"Walls and rempards",
+		"list": ["Porte du palais royal","Murailles du Palais Roayale ","Bab Sagma","Mausole Abou Bakr Ibn Arabi","Bab Mahrouq","Kasba Chrarda et Ces Murailles","Borj Nord","Bab Riafa","Centre de Formation et de Qualification dans les metiers de l'artsanat","Borj Sud","Bab Ftouh"] },
+	{"path":"Handcrafts",
+		"list": ["bab Boujloud","Médrassa Bou'anani","Talaa Kbira","Qaàt Smen","Fondouk Tazi","Souk Ain Allou","Souk El Bellagine","Souk El Henna","Souk El Attarine","Cinque Souks et Qissariat el Kifah","Méderssa Attarine","Méderssa Misbahiya","Fondouk Staouniyine","Rue Mechatine","Place Lalla Yeddouna"] },
+	{"path":"Monuments And Souks",
+		"list": ["Bab Boujloud","Complex(madrassa) Bou'Inania","Talaa Sghira","Complex Nejjarine","Souk El Henna","Mausole Moulay Driss ","Fondouk Al Berka","Fondouks Chemmaine et Sbitryine","Dar Al Mouaqqit","Mosquee Quarouine","Medrasa Misbahiya","Fondouk Staouniyine","Bibliotheque de La Qaraouiyine","Place Seffarine ","Madtassa Seffarine","El 'Aouadine","Place R'Cif"] },
+	{"path":"Wisdom And Knowledge",
+		"list": ["Bab el Guissa","Mosquée Bab Guissa","Al Achabine","Atelier de broca","Zaouiat Sidi Ahemd Tijani","Ateliers de broderie de Tissage","Derb Taouil","Tanneries Chouara","Ateliers des artisans de cuir","Pont et Place Bin LamdoUn","Place Lalla Yeddouna","Rue Sffah","Mosquée el Oued","Médersa Sahrij","Médersa Sbaiyine","Mosquée Al andalous","Mosquée Al anouar"]},
+	{"path":"Places And Andalusian Gandens",
+		"list": ["Jardin Jnane Sbil","Musee Batha","Dar Pacha Tazi","Centre international de promotion de l'artisanat (CIPA) ","Palais Abdeslam Moqri","Riad Driss Moqri","Dar Adiyel","Palais Mnbhi","Dar ba Mohammed Chergui","Talaa Kbira","Acces Ain Azliten","Tanneries Ain Azliten"]},
+	{"path":"Fes Jdid",
+		"list": ["Porte du palais royal","Cimtiere juif","Synagogue ibn danan","Le Mallah","Synagogue Al Fassiyine","Bab Semmarine","Jamaa Al Hamra","Rue Fes Jdid","Place Moulay Hassan"] }
+]
