@@ -17,6 +17,7 @@ class ShowPlaces extends StatefulWidget {
 class _HomeState extends State<ShowPlaces> {
   late List<Users> _users = [];
   late List<Path> _paths = [];
+  late Path _path;
   late bool _loading = true;
   late String buttonName;
   late int start = 0, last = 0, n = 0;
@@ -25,21 +26,16 @@ class _HomeState extends State<ShowPlaces> {
   @override
   void initState() {
     super.initState();
-    Services.getFeedBackFromSheet().then((users) {
+    Services.getFeedBackFromSheet(buttonName).then((users) {
       setState(() {
         _users = users;
-
         _loading = false;
+        print("hey hey hey");
         if (_users.length - this.last > 0) {
           n = _users.length - this.last;
         } else {
           n = 0;
         }
-      });
-    });
-    Services.getJsonData().then((paths) {
-      setState(() {
-        _paths = paths.cast<Path>();
       });
     });
   }
@@ -56,7 +52,8 @@ class _HomeState extends State<ShowPlaces> {
           child: ListView.builder(
               itemCount: null == _users ? 0 : n,
               itemBuilder: (context, i) {
-                // if (_users[i].nom){}
+                // if (_paths[i])
+                // if ( _pathsp[].contains(_users[i].nom) ){}
                 Users user = _users[i + this.start];
                 return Card(
                   child: ListTile(

@@ -6,4 +6,7 @@ class Path {
     pathName = json["path"];
     list = json["list"];
   }
+  String? getName() {
+    return (pathName == null) ? pathName : "";
+  }
 }

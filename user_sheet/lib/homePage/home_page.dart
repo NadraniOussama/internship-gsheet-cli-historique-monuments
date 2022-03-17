@@ -45,37 +45,37 @@ class MyHomePage extends StatelessWidget {
             children: [
               Button_Elevate(
                   color: Colors.orange,
-                  buttonName: 'Walls and rempards',
+                  buttonName: "Walls and rempards",
                   start: 1,
                   last: 12,
                   funtion: () {}),
               Button_Elevate(
                   color: Colors.pink,
-                  buttonName: 'Handcrafts',
+                  buttonName: "Handcrafts",
                   start: 0,
                   last: 12,
                   funtion: () {}),
               Button_Elevate(
                   color: Colors.brown,
-                  buttonName: 'Monuments And Souks',
+                  buttonName: "Monuments And Souks",
                   start: 0,
                   last: 12,
                   funtion: () {}),
               Button_Elevate(
                   color: Colors.blue,
-                  buttonName: 'Wisdom And Knowledge',
+                  buttonName: "Wisdom And Knowledge",
                   start: 0,
                   last: 12,
                   funtion: () {}),
               Button_Elevate(
                   color: Colors.green,
-                  buttonName: 'Places And Andalusian Gandens',
+                  buttonName: "Places And Andalusian Gandens",
                   start: 0,
                   last: 12,
                   funtion: () {}),
               Button_Elevate(
                   color: Colors.purple,
-                  buttonName: 'Fes Jdid',
+                  buttonName: "Fes Jdid",
                   start: 0,
                   last: 12,
                   funtion: () {}),
