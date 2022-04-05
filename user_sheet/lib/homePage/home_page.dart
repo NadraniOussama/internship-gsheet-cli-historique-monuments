@@ -69,7 +69,7 @@ class MyHomePage extends StatelessWidget {
                   funtion: () {}),
               Button_Elevate(
                   color: Colors.green,
-                  buttonName: "Places And Andalusian Gandens",
+                  buttonName: "Places And Andalusian Gardens",
                   start: 0,
                   last: 12,
                   funtion: () {}),

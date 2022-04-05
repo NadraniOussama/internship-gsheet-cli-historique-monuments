@@ -10,36 +10,48 @@ class InsertPageState extends StatelessWidget {
   // TextField Controllers
   TextEditingController nameController = TextEditingController();
   TextEditingController nom = TextEditingController();
-  TextEditingController dateConstruction = TextEditingController();
-  TextEditingController epoqueConstruction = TextEditingController();
-  TextEditingController personneHistorique = TextEditingController();
+  TextEditingController dateConstructionController = TextEditingController();
+  TextEditingController epoqueController = TextEditingController();
+  TextEditingController pHistoriqueContoller = TextEditingController();
   TextEditingController descriptionHistorique = TextEditingController();
-  TextEditingController lien = TextEditingController();
-  TextEditingController categorie = TextEditingController();
-  TextEditingController prixAcces = TextEditingController();
-  TextEditingController surface = TextEditingController();
+  TextEditingController lienCont = TextEditingController();
+  TextEditingController categorieController = TextEditingController();
+  TextEditingController prixAccesContoller = TextEditingController();
+  TextEditingController surfaceController = TextEditingController();
   TextEditingController positionCarte = TextEditingController();
-  TextEditingController image = TextEditingController();
+  TextEditingController imageController = TextEditingController();
+  TextEditingController imagePathController = TextEditingController();
   late Users user;
   late Color color;
   String buttonName;
-  InsertPageState(this.user, this.color, this.buttonName);
+  InsertPageState(this.user, this.color, this.buttonName) {
+    nameController.text = user.nom;
+    dateConstructionController.text = user.dateConstruction;
+    epoqueController.text = user.epoqueConstruction;
+    pHistoriqueContoller.text = user.personneHistorique;
+    lienCont.text = user.lien;
+    categorieController.text = user.categorie;
+    prixAccesContoller.text = user.prixAcces;
+    surfaceController.text = user.surface;
+    positionCarte.text = user.positionCarte;
+    imageController.text = user.image;
+    imagePathController.text = user.imagePath;
+  }
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       // descriptionHistorique,lien,categorie,prixAcces,surface,positionCarte,image
       final Map<String, dynamic> users = {
         UserFields.nom: nameController.text,
-        UserFields.dateConstruction: dateConstruction.text,
-        UserFields.epoqueConstruction: epoqueConstruction.text,
-        UserFields.personneHistorique: personneHistorique.text,
+        UserFields.dateConstruction: dateConstructionController.text,
+        UserFields.epoqueConstruction: epoqueController.text,
+        UserFields.personneHistorique: pHistoriqueContoller.text,
         UserFields.descriptionHistorique: descriptionHistorique.text,
-        UserFields.lien: lien.text,
-        UserFields.categorie: categorie.text,
-        UserFields.prixAcces: prixAcces.text,
-        UserFields.surface: surface.text,
+        UserFields.lien: lienCont.text,
+        UserFields.categorie: categorieController.text,
+        UserFields.prixAcces: prixAccesContoller.text,
+        UserFields.surface: surfaceController.text,
         UserFields.positionCarte: positionCarte.text,
-        //UserFields.image = image.text
       };
 
       /*Users users = { nom: nom.text,
@@ -47,10 +59,7 @@ class InsertPageState extends StatelessWidget {
           personneHistorique: personneHistorique.text, descriptionHistorique: descriptionHistorique.text,
           lien: lien.text, categorie: categorie.text, positionCarte: positionCarte.text, image: image.text} as Users ;*/
 
-      // await UserSheetApi.insert([user]);
-      print(users);
       await UserSheetApi.update("1", users);
-      print(users);
       await UserSheetApi.init();
 
       _showSnackbar("Submitting Feedback");
@@ -62,8 +71,6 @@ class InsertPageState extends StatelessWidget {
     final snackBar = SnackBar(content: Text(message));
     _scaffoldKey.currentState!.showSnackBar(snackBar);
   }
-
-  String labelText = "Enter";
 
   @override
   Widget build(BuildContext context) {
@@ -77,144 +84,80 @@ class InsertPageState extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  TextFormField(
-                    //initialValue: this.user.nom,
-                    controller: dateConstruction,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Enter Valid date Construction";
-                      }
-                      return null;
-                    },
-                    //initialValue: this.user.nom,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: color),
-                        borderRadius: BorderRadius.circular(5.5),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: color,
-                        ),
-                      ),
-                      filled: true,
-                      //fillColor: Colors.red[50],
-                      labelText: labelText,
-                      labelStyle: TextStyle(color: color),
+                  Container(
+                    child: Image.network(
+                      user.imagePath,
+                      fit: BoxFit.cover,
                     ),
+                    height: 100,
+                    width: 200,
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        TextFormField(
-                          // ignore: unnecessary_null_comparison
-                          controller: nameController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter Valid Name";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(labelText: "Name"),
+                        buildTextField(color, nameController,
+                            "Un nom valide Entrer nom valide", "Nom"),
+                        SizedBox(
+                          height: 10,
                         ),
-                        TextFormField(
-                          controller: dateConstruction,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter Valid date Construction";
-                            }
-                            return null;
-                          },
-                          decoration:
-                              InputDecoration(labelText: "DateConstruction"),
+                        buildTextField(
+                            color,
+                            dateConstructionController,
+                            "Enter Valid date Construction",
+                            "DateConstruction"),
+                        SizedBox(
+                          height: 10,
                         ),
-                        TextFormField(
-                          controller: epoqueConstruction,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter Valid Phone Number";
-                            }
-                            return null;
-                          },
-                          decoration:
-                              InputDecoration(labelText: "Phone Number"),
+                        buildTextField(color, epoqueController,
+                            "Enter Valid Phone Number", "Historical periode"),
+                        SizedBox(
+                          height: 10,
                         ),
-                        TextFormField(
-                          controller: personneHistorique,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "_";
-                            }
-                            return null;
-                          },
-                          decoration:
-                              InputDecoration(labelText: "Personne historique"),
+                        buildTextField(
+                            color,
+                            pHistoriqueContoller,
+                            "Periode Historique pas valable",
+                            "Personne Historique"),
+                        SizedBox(
+                          height: 10,
                         ),
-                        TextFormField(
-                          controller: descriptionHistorique,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter Valid description Historique";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              labelText: "Desciption historique"),
+                        buildTextField(
+                            color,
+                            descriptionHistorique,
+                            "Enter Valid description Historique",
+                            "Desciption historique"),
+                        SizedBox(
+                          height: 10,
                         ),
-                        TextFormField(
-                          controller: lien,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter Valid lien";
-                            }
-                            return null;
-                          },
-                          decoration:
-                              InputDecoration(labelText: "Lien intenet"),
+                        buildTextField(
+                            color, lienCont, "Entrer lien Valid", "Liens"),
+                        SizedBox(
+                          height: 10,
                         ),
-                        TextFormField(
-                          controller: categorie,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter Valid gategory";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(labelText: "Category"),
+                        buildTextField(color, categorieController,
+                            "Entrer category valide", "Category"),
+                        SizedBox(
+                          height: 10,
                         ),
-                        TextFormField(
-                          controller: prixAcces,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "_";
-                            }
-                            return null;
-                          },
-                          decoration:
-                              InputDecoration(labelText: "Prix d'access"),
+                        buildTextField(color, prixAccesContoller,
+                            "Donner prix d'acces valide", "Prix d'access"),
+                        SizedBox(
+                          height: 10,
                         ),
-                        TextFormField(
-                          controller: surface,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "_";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(labelText: "Surface "),
+                        buildTextField(
+                            color, surfaceController, "err surface", "Surface"),
+                        SizedBox(
+                          height: 10,
                         ),
-                        TextFormField(
-                          controller: positionCarte,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              prefixText: "esfsfsf", labelText: "Localisation"),
+                        buildTextField(color, positionCarte, "hallo error TODO",
+                            "Localisation"),
+                        SizedBox(
+                          height: 10,
                         ),
                         RaisedButton(
                           color: Colors.blue,
@@ -235,7 +178,16 @@ class InsertPageState extends StatelessWidget {
   }
 }
 
-Widget buildTextField() => TextFormField(
+Widget buildTextField(Color color, TextEditingController controller,
+        String errMessage, String labelText) =>
+    TextFormField(
+      controller: controller,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return errMessage;
+        }
+        return null;
+      },
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
@@ -243,16 +195,16 @@ Widget buildTextField() => TextFormField(
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.red,
+            color: color,
           ),
         ),
-        prefixIcon: Icon(
-          Icons.person,
-          color: Colors.red,
-        ),
+        // prefixIcon: Icon(
+        //   Icons.person,
+        //   color: Colors.red,
+        // ),
         filled: true,
-        fillColor: Colors.red[50],
-        labelText: "Enter your Name",
-        labelStyle: TextStyle(color: Colors.red),
+        fillColor: Colors.black12,
+        labelText: labelText,
+        labelStyle: TextStyle(color: color),
       ),
     );

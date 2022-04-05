@@ -1,0 +1,20 @@
+[ 
+	{"path":"Walls and rempards",
+		"list": [14,23,24,25,26,27,28,29,30,31,32],
+		"size":10 },
+	{"path":"Handcrafts",
+		"list": [33,34,11,35,36,37,38,39,40,41,42,43,44,45,46],
+		"size":15 },
+	{"path":"Monuments And Souks",
+		"list": [33,47,48,49,39,50,51,52,53,54,55,44,56,57,58,59,60],
+		"size":17 },
+	{"path":"Wisdom And Knowledge",
+		"list": [61,62,63,64,65,66,67,68,69,70,46,71,72,73,74,75,76],
+	"size":17},
+	{"path":"Places And Andalusian Gardens",
+		"list": [2,3,4,5,6,7,8,9,10,11,12,13],
+	"size":12},
+	{"path":"Fes Jdid",
+		"list": [14,15,16,17,18,19,20,21,22],
+		"size":9 }
+]

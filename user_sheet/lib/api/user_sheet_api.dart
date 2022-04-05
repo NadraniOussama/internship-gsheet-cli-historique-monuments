@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'package:gsheets/gsheets.dart';
+import 'package:user_sheet/list/users.dart';
 import 'package:user_sheet/model/user.dart';
+import 'package:flutter/services.dart' as rootBundle;
+import 'package:user_sheet/model/path.dart';
 
-class UserSheetApi{
-
+class UserSheetApi {
   static final _credentials = r'''
   {
   "type": "service_account",
@@ -18,47 +21,82 @@ class UserSheetApi{
 }
   ''';
 
-  static final _spreadsheetId = '1eWBWYRaP8geg3ECDUykcnPMOv2vHMGveWt1cVrCpcFQ';
+  static final _spreadsheetId = '';
   static final _gsheets = GSheets(_credentials);
-  static Worksheet? _userSheet;
+  static var _userSheet;
+
   static Future init() async {
-    try{
+    try {
       final spreadsheet = await _gsheets.spreadsheet(_spreadsheetId);
-      _userSheet = await _getWorkSheet(spreadsheet, title: 'Users');
+      _userSheet = await _getWorkSheet(spreadsheet, title: 'minimum');
       final firstRow = UserFields.getFields();
       _userSheet!.values.insertRow(1, firstRow);
-    }catch(e){
+    } catch (e) {
       print('Init Error: $e');
     }
-
   }
 
-  static Future<Worksheet> _getWorkSheet(
-      Spreadsheet spreadsheet,{
-        required String  title
-      }
-      )async{
-    try{
+  static Future<Worksheet> _getWorkSheet(Spreadsheet spreadsheet,
+      {required String title}) async {
+    try {
       return await spreadsheet.addWorksheet(title);
-    }catch(e){
+    } catch (e) {
       return spreadsheet.worksheetByTitle(title)!;
     }
-
   }
 
-
-
   static Future insert(List<Map<String, dynamic>> rowList) async {
-    if(_userSheet == null) return;
+    if (_userSheet == null) return;
     _userSheet!.values.map.appendRows(rowList);
   }
 
   static Future<bool> update(
-    String id, Map<String, dynamic> user,
-  ) async{
-    if(_userSheet == null) return false;
-
+    String id,
+    Map<String, dynamic> user,
+  ) async {
+    if (_userSheet == null) return false;
     return _userSheet!.values.map.insertRowByKey(id, user);
+  }
 
+  static Future<List<Users>> getAll() async {
+    await init();
+    if (_userSheet == null) return <Users>[];
+    List<Map<String, String>>? users = await _userSheet!.values.map.allRows();
+    return users == null
+        ? <Users>[]
+        : users.map((e) => Users.fromJson(e)).toList();
+  }
+
+  static Future<List<Users>> getFromPath(String namePath) async {
+    await init();
+    if (_userSheet == null) return <Users>[];
+    List<Map<String, String>>? users = await _userSheet!.values.map.allRows();
+    List<Users> _users = users!.map((e) => Users.fromJson(e)).toList();
+    List<int> nameMonuments = await getJsonData(namePath);
+    List<Users> result = [];
+    _users.forEach((e) {
+      nameMonuments.forEach((mon) {
+        if (mon == e.id) result.add(e);
+      });
+    });
+    return result;
+  }
+
+  static Future<List<int>> getJsonData(String namePath) async {
+    final jsonData =
+        await rootBundle.rootBundle.loadString('assets/places2.json');
+    final list = json.decode(jsonData) as List<dynamic>;
+    List<Path> paths = list.map((e) => Path.fromJson(e)).toList();
+    var lists;
+    paths.forEach((element) {
+      if (element.pathName == namePath) {
+        lists = element.list!;
+      }
+    });
+    return lists;
+  }
+
+  static Future getImages() async {
+    // TODO: get images
   }
 }

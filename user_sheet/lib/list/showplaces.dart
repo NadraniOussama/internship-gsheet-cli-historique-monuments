@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:user_sheet/api/user_sheet_api.dart';
 import 'package:user_sheet/list/place_details.dart';
-import 'package:user_sheet/list/serveces.dart';
 import 'package:user_sheet/list/users.dart';
 
 class ShowPlaces extends StatefulWidget {
@@ -16,9 +16,7 @@ class ShowPlaces extends StatefulWidget {
 
 class _HomeState extends State<ShowPlaces> {
   late List<Users> _users = [];
-  late List<Path> _paths = [];
-  late Path _path;
-  late bool _loading = true;
+  late bool _loading = false;
   late String buttonName;
   late int start = 0, last = 0, n = 0;
   late Color color;
@@ -26,16 +24,11 @@ class _HomeState extends State<ShowPlaces> {
   @override
   void initState() {
     super.initState();
-    Services.getFeedBackFromSheet(buttonName).then((users) {
+    UserSheetApi.getFromPath(buttonName).then((users) {
       setState(() {
         _users = users;
         _loading = false;
-        print("hey hey hey");
-        if (_users.length - this.last > 0) {
-          n = _users.length - this.last;
-        } else {
-          n = 0;
-        }
+        n = _users.length;
       });
     });
   }
@@ -52,23 +45,21 @@ class _HomeState extends State<ShowPlaces> {
           child: ListView.builder(
               itemCount: null == _users ? 0 : n,
               itemBuilder: (context, i) {
-                // if (_paths[i])
-                // if ( _pathsp[].contains(_users[i].nom) ){}
-                Users user = _users[i + this.start];
+                Users user = _users[i];
                 return Card(
                   child: ListTile(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PlaceDetail(
-                                  _users[i + this.start], this.color)));
+                              builder: (context) =>
+                                  PlaceDetail(_users[i], this.color)));
                     },
                     title: Text(user.nom),
                     leading: CircleAvatar(
                       child: ClipOval(
                         child: Image.network(
-                          user.image,
+                          user.imagePath,
                           width: 50,
                           height: 50,
                           fit: BoxFit.cover,
@@ -77,7 +68,6 @@ class _HomeState extends State<ShowPlaces> {
                     ),
                   ),
                 );
-                // }
               }),
         ));
   }

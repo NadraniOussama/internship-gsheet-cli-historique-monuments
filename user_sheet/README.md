@@ -14,3 +14,20 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+## idea for future needed function 
+
+> add a picture from callry / phone 
+
+> get location from gps 
+
+> Create dropeout for defined question 
+
+> show location on map based on OSM (open source map)
+
+> create path from array/tuple of location on google maps 
+
+> in app browsing functionality and in app redirect to website 
+
+> beautify UI/UX
