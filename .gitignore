@@ -7,6 +7,6 @@ user_sheet/build/
 app_stage/ios/
 app_stage\.dart_tool/
 app-input-oualid/build/
-gsheet-344613-3085bebe00cd.json
-gsheet-344613-3085bebe00cd.json
 gsheet-key.json
+user_sheet/assets/gsheet-key.json
+user_sheet/lib/model/keys.dart
