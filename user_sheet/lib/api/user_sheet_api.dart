@@ -6,6 +6,8 @@ import 'package:flutter/services.dart' as rootBundle;
 import 'package:user_sheet/model/path.dart';
 
 class UserSheetApi {
+  // TODO: remove this from the file and use a file the at contains
+  // this key instead to minimise acces to the google sheet
   static final _credentials = r'''
   {
   "type": "service_account",
@@ -21,7 +23,7 @@ class UserSheetApi {
 }
   ''';
 
-  static final _spreadsheetId = '';
+  static final _spreadsheetId = '1HvyTvUF5E1aPW02TdRX0VGi 5KoLD9Og6KdBxiakk39c';
   static final _gsheets = GSheets(_credentials);
   static var _userSheet;
 
