@@ -3,6 +3,9 @@ import 'package:user_sheet/api/user_sheet_api.dart';
 import 'package:user_sheet/list/place_details.dart';
 import 'package:user_sheet/list/users.dart';
 
+// might need a checkmark to check if we have all the information about the historical monument
+// needs some styling if to look cuter and on brand
+// the design is kinda of shit but functional (functionality is the goal)
 class ShowPlaces extends StatefulWidget {
   late String buttonName;
   late int start, last;
@@ -41,7 +44,7 @@ class _HomeState extends State<ShowPlaces> {
           title: Text(_loading ? "Loading ..." : this.buttonName),
         ),
         body: Container(
-          color: Colors.white,
+          color: Colors.white24,
           child: ListView.builder(
               itemCount: null == _users ? 0 : n,
               itemBuilder: (context, i) {
@@ -57,13 +60,17 @@ class _HomeState extends State<ShowPlaces> {
                     },
                     title: Text(user.nom),
                     leading: CircleAvatar(
+                      backgroundColor: this.color,
                       child: ClipOval(
-                        child: Image.network(
-                          user.imagePath,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                        ),
+                        child: (user.imagePath == "")
+                            ? Container(child: Icon(Icons.camera_alt))
+                            : Image.network(
+                                // add picture based on path looks cuter
+                                user.imagePath,
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                   ),

@@ -9,13 +9,15 @@ import 'package:user_sheet/model/keys.dart';
 
 class UserSheetApi {
   // you need to have access to the file keys.dart that contains the key the credentials and key
-  static final GSheets _gsheets = GSheets(jsonEncode(Keys.credentials()));
+  static final GSheets _gsheets = GSheets(Keys.credentials());
   static var _userSheet;
+  static var _detailedSheet;
 
   static Future init() async {
     try {
       final spreadsheet = await _gsheets.spreadsheet(Keys.spreadSheetID());
       _userSheet = await _getWorkSheet(spreadsheet, title: 'minimum');
+      _detailedSheet = await _getWorkSheet(spreadsheet, title: "detaille");
       final firstRow = UserFields.getFields();
       _userSheet!.values.insertRow(1, firstRow);
     } catch (e) {

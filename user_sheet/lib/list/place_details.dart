@@ -21,7 +21,9 @@ class PlaceDetail extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: <Widget>[
-            Image.network(user.imagePath),
+            (user.imagePath == "")
+                ? Icon(Icons.camera_alt)
+                : Image.network(user.imagePath),
             Padding(
                 padding: const EdgeInsets.all(9.0),
                 child: Column(
@@ -69,6 +71,7 @@ class PlaceDetail extends StatelessWidget {
 
   Column LinkedText(String title, String links) {
     //TODO: might need to create a class to see all the hyper link in the text
+    // to open browser
     return Column();
   }
 

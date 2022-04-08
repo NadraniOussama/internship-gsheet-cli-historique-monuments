@@ -6,6 +6,7 @@ import 'package:user_sheet/model/user.dart';
 class InsertPageState extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _edit = true;
 
   // TextField Controllers
   TextEditingController nameController = TextEditingController();
@@ -26,6 +27,7 @@ class InsertPageState extends StatelessWidget {
   String buttonName;
   InsertPageState(this.user, this.color, this.buttonName) {
     nameController.text = user.nom;
+    descriptionHistorique.text = user.descriptionHistorique;
     dateConstructionController.text = user.dateConstruction;
     epoqueController.text = user.epoqueConstruction;
     pHistoriqueContoller.text = user.personneHistorique;
@@ -61,6 +63,9 @@ class InsertPageState extends StatelessWidget {
 
       await UserSheetApi.update("1", users);
       await UserSheetApi.init();
+      setState() {
+        _edit = false;
+      }
 
       _showSnackbar("Submitting Feedback");
     }
@@ -76,21 +81,37 @@ class InsertPageState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: color,
+        title: Text(user.nom),
+      ),
       body: Center(
         child: ListView(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical: 50, horizontal: 24),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 24),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    child: Image.network(
-                      user.imagePath,
-                      fit: BoxFit.cover,
+                  CircleAvatar(
+                    backgroundColor: this.color.withOpacity(0.7),
+                    minRadius: 70,
+                    child: ClipOval(
+                      child: (user.imagePath == "")
+                          ? Container(
+                              child: Icon(
+                                Icons.camera_alt,
+                                size: 70,
+                              ),
+                            )
+                          : Image.network(
+                              // add picture based on path looks cuter
+                              user.imagePath,
+                              width: 130,
+                              height: 130,
+                              fit: BoxFit.cover,
+                            ),
                     ),
-                    height: 100,
-                    width: 200,
                   ),
                   SizedBox(
                     height: 10,
@@ -100,12 +121,13 @@ class InsertPageState extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        buildTextField(color, nameController,
+                        buildTextField(_edit, color, nameController,
                             "Un nom valide Entrer nom valide", "Nom"),
                         SizedBox(
                           height: 10,
                         ),
                         buildTextField(
+                            _edit,
                             color,
                             dateConstructionController,
                             "Enter Valid date Construction",
@@ -113,12 +135,13 @@ class InsertPageState extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        buildTextField(color, epoqueController,
+                        buildTextField(_edit, color, epoqueController,
                             "Enter Valid Phone Number", "Historical periode"),
                         SizedBox(
                           height: 10,
                         ),
                         buildTextField(
+                            _edit,
                             color,
                             pHistoriqueContoller,
                             "Periode Historique pas valable",
@@ -127,6 +150,7 @@ class InsertPageState extends StatelessWidget {
                           height: 10,
                         ),
                         buildTextField(
+                            _edit,
                             color,
                             descriptionHistorique,
                             "Enter Valid description Historique",
@@ -134,28 +158,28 @@ class InsertPageState extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        buildTextField(
-                            color, lienCont, "Entrer lien Valid", "Liens"),
+                        buildTextField(_edit, color, lienCont,
+                            "Entrer lien Valid", "Liens"),
                         SizedBox(
                           height: 10,
                         ),
-                        buildTextField(color, categorieController,
+                        buildTextField(_edit, color, categorieController,
                             "Entrer category valide", "Category"),
                         SizedBox(
                           height: 10,
                         ),
-                        buildTextField(color, prixAccesContoller,
+                        buildTextField(_edit, color, prixAccesContoller,
                             "Donner prix d'acces valide", "Prix d'access"),
                         SizedBox(
                           height: 10,
                         ),
-                        buildTextField(
-                            color, surfaceController, "err surface", "Surface"),
+                        buildTextField(_edit, color, surfaceController,
+                            "err surface", "Surface"),
                         SizedBox(
                           height: 10,
                         ),
-                        buildTextField(color, positionCarte, "hallo error TODO",
-                            "Localisation"),
+                        buildTextField(_edit, color, positionCarte,
+                            "hallo error TODO", "Localisation"),
                         SizedBox(
                           height: 10,
                         ),
@@ -178,33 +202,39 @@ class InsertPageState extends StatelessWidget {
   }
 }
 
-Widget buildTextField(Color color, TextEditingController controller,
-        String errMessage, String labelText) =>
-    TextFormField(
-      controller: controller,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return errMessage;
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(5.5),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: color,
-          ),
-        ),
-        // prefixIcon: Icon(
-        //   Icons.person,
-        //   color: Colors.red,
-        // ),
-        filled: true,
-        fillColor: Colors.black12,
-        labelText: labelText,
-        labelStyle: TextStyle(color: color),
+Widget buildTextField(bool edit, Color color, TextEditingController controller,
+    String errMessage, String labelText) {
+  if (controller.text == "-") {
+    controller.text = "";
+  }
+  return TextFormField(
+    controller: controller,
+    validator: (value) {
+      if (value!.isEmpty) {
+        return errMessage;
+      }
+      return null;
+    },
+    minLines: 1,
+    maxLines: 10,
+    // onEditingComplete: () {
+    //   edit = false;
+    // },
+    decoration: InputDecoration(
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: color),
+        borderRadius: BorderRadius.circular(5.5),
       ),
-    );
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: color.withOpacity(0.2),
+        ),
+      ),
+      filled: true,
+      fillColor: Colors.black12,
+      labelText: labelText,
+      labelStyle: TextStyle(color: color),
+      enabled: edit, // need to enable browsing version and modification version
+    ),
+  );
+}
