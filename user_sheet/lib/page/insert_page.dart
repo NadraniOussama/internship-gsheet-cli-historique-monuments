@@ -201,9 +201,10 @@ class InsertPageState extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        RaisedButton(
-                          color: Colors.blue,
-                          textColor: Colors.white,
+                        ElevatedButton(
+                          // color: Colors.blue,
+                          // textColor: Colors.white,
+                          style: ButtonStyle(),
                           onPressed: _submitForm,
                           child: Text('Submit Feedback'),
                         )

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:user_sheet/page/create_sheets.dart';
-import 'package:user_sheet/page/insert_page.dart';
-import 'api/user_sheet_api.dart';
 import 'homePage/home_page.dart';
-import 'list/place_details.dart';
-import 'list/showplaces.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +15,24 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        
+        bottomAppBarTheme: BottomAppBarTheme(color: Colors.blue),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(),
+        appBarTheme: AppBarTheme(color: Colors.blue),
+        buttonBarTheme: ButtonBarThemeData(),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+              padding: MaterialStateProperty.resolveWith(
+                  (states) => const EdgeInsets.all(10.0)),
+              foregroundColor:
+                  MaterialStateColor.resolveWith((states) => Colors.red),
+              backgroundColor:
+                  MaterialStateColor.resolveWith((states) => Colors.white),
+              shape: MaterialStateProperty.resolveWith(
+                (states) => RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: BorderSide(color: Colors.red)),
+              )),
+        ),
       ),
       home: MyHomePage(),
     );

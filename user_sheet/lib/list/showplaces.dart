@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:user_sheet/api/user_sheet_api.dart';
 import 'package:user_sheet/list/place_details.dart';
 import 'package:user_sheet/list/users.dart';
+import 'package:user_sheet/page/insert_page.dart';
 
 // might need a checkmark to check if we have all the information about the historical monument
 // needs some styling if to look cuter and on brand
@@ -55,8 +56,9 @@ class _HomeState extends State<ShowPlaces> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  PlaceDetail(_users[i], this.color)));
+                              builder: (context) => InsertPageState(
+                                  _users[i], this.color, _users[i].nom)));
+                      // PlaceDetail(_users[i], this.color)));
                     },
                     title: Text(user.nom),
                     leading: CircleAvatar(
