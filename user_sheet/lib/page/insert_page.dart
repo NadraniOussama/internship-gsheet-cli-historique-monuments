@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:user_sheet/api/user_sheet_api.dart';
 import 'package:user_sheet/list/users.dart';
 import 'package:user_sheet/model/user.dart';
+import 'package:user_sheet/page/picture.dart';
 
 class InsertPageState extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -97,20 +98,37 @@ class InsertPageState extends StatelessWidget {
                     backgroundColor: this.color.withOpacity(0.7),
                     minRadius: 70,
                     child: ClipOval(
-                      child: (user.imagePath == "")
-                          ? Container(
-                              child: Icon(
+                      child: GestureDetector(
+                        child: (user.imagePath == "")
+                            ? Icon(
                                 Icons.camera_alt,
                                 size: 70,
+                              )
+                            : Image.network(
+                                // add picture based on path looks cuter
+                                user.imagePath,
+                                width: 130,
+                                height: 130,
+                                fit: BoxFit.cover,
                               ),
-                            )
-                          : Image.network(
-                              // add picture based on path looks cuter
-                              user.imagePath,
-                              width: 130,
-                              height: 130,
-                              fit: BoxFit.cover,
-                            ),
+                        onTap: (user.imagePath == "")
+                            ? () {
+                                print("hello clicked");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PictureWidget(imagePath: "")));
+                              }
+                            : () {
+                                print("hello clicked2");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PictureWidget(
+                                            imagePath: user.imagePath)));
+                              },
+                      ),
                     ),
                   ),
                   SizedBox(
